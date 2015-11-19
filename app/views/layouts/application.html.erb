@@ -8,7 +8,53 @@
 </head>
 <body>
 
+  <nav class='navbar navbar-default'>
+
+    <div class='container'>
+
+      <div class='navbar-header'>
+        <%= link_to "Book Review", root_path, class: "navbar-brand" %>
+      </div>
+
+      <ul class='nav navbar-nav'>
+        <li><%= link_to "Sign Up", new_user_registration_path %></li>
+        <% if user_signed_in? %>
+        <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+        <li><%= link_to "Log In", new_user_session_path %></li>
+        <% end %>
+      </ul>
+
+      <ul class='nav navbar-nav navbar-right'>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories <span class="caret"></span></a>
+          <ul class= "dropdown-menu" role="menu">
+            <%Category.all.each do |category| %>
+            <li class="<%= 'active' if params[:category] == category.name %>">
+              <%= link_to category.name, books_path(category: category.name), class: "link" %>
+
+            </li>
+            <% end %>
+          </ul>
+        </li>
+
+        <% if user_signed_in? %>
+        <li><%= link_to "Add Book", new_book_path %></li>
+        <% end %>
+
+      </ul>
+
+    </div>
+
+  </nav>
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %><%= alert %></p>
+
+  <div class="container">
 <%= yield %>
+  </div>
 
 </body>
 </html>

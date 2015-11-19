@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-4">
+
+    <%= image_tag @book.book_img.url(:book_show), class: "book-show" %>
+
+</div>
+
+  <div class="col-md-8">
+
+    <div class="book-info">
+
+      <h2 class="book-title"><%= @book.title %></h2>
+      <h3 class="book-author"><%= @book.author %></h3>
+
+      <p class="book-desc"><%= @book.description %></p>
+    </div>
+</div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-4">
+
+    <div class="reviews">
+
+    <!-- Where the reviews/ratings will go -->
+      <h1>Reviews</h1>
+      <%= render @book.reviews %>
+
+    <div>
+         <%= link_to "Add Review", new_book_review_path(@book), class: "btn-custom" %>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="links btn-group">
+
+<%= link_to 'Back', root_path, class: "btn btn-custom" %>
+
+    <% if user_signed_in? %>
+
+    <% if @book.user_id == current_user.id %>
+    <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-custom" %>
+    <%= link_to 'Delete', book_path(@book), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-custom" %>
+    <% end %>
+
+    <% end %>
+
+</div>
